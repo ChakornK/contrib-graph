@@ -73,4 +73,7 @@ const { data: optimized } = optimize(svg, {
   multipass: true,
 });
 
+if (!fs.existsSync("dist")) {
+  fs.mkdirSync("dist");
+}
 fs.writeFileSync("dist/graph.svg", optimized);
