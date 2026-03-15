@@ -18,7 +18,7 @@ if (!t) {
 // character set: ADFJMNOSWabcdeghilnoprstuvy0123456789
 const fontB64 = fs.readFileSync("assets/SpaceGrotesk-Regular.woff2", "base64");
 
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 723 120" width="723" height="120">
+let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 686 120" width="686" height="120">
 <style>
   @font-face { font-family: f; src: url(data:font/woff2;base64,${fontB64}); }
   .t {
