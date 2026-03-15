@@ -2,7 +2,6 @@ import fs from "node:fs";
 import { parse } from "node-html-parser";
 import { optimize } from "svgo";
 
-const firstColWidth = 28;
 const cellSpacing = 3;
 const cellWidth = 10;
 const cellHeight = 10;
@@ -16,10 +15,10 @@ if (!t) {
   throw new Error("Cannot find contributions table");
 }
 
-// character set: ADFJMNOSWabcdegilnoprtuvy
+// character set: ADFJMNOSWabcdeghilnoprstuvy0123456789
 const fontB64 = fs.readFileSync("assets/SpaceGrotesk-Regular.woff2", "base64");
 
-let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 723 113" width="723" height="113">
+let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 723 120" width="723" height="120">
 <style>
   @font-face { font-family: f; src: url(data:font/woff2;base64,${fontB64}); }
   .t {
@@ -33,14 +32,14 @@ let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 723 113" width="
     font-size: ${fontSize}px; 
     dominant-baseline: hanging; 
   }
-  .a { fill: #f4f4ef; }
+  .a { fill: #d4d4cf33; }
   .b { opacity: 0.25; }
   .c { opacity: 0.5; }
   .d { opacity: 0.75; }
   .e { opacity: 1; }
 </style>`;
 
-let x = firstColWidth + cellSpacing;
+let x = 0;
 let y = 0;
 
 for (const monthLabel of t.querySelectorAll("thead > tr > td.ContributionCalendar-label")) {
@@ -49,23 +48,21 @@ for (const monthLabel of t.querySelectorAll("thead > tr > td.ContributionCalenda
   const colSpan = monthLabel.getAttribute("colspan")!;
   x += (cellWidth + cellSpacing) * +colSpan;
 }
+y += 1;
 
 for (const row of t.querySelectorAll("tbody > tr")) {
   x = 0;
   y += cellHeight + cellSpacing;
-  const dayLabel = row.querySelector("td.ContributionCalendar-label span[style*='None']");
-  if (dayLabel) {
-    const text = dayLabel.innerText.trim();
-    svg += `<text class="s" x="${x}" y="${y}">${text}</text>`;
-  }
-  x = firstColWidth + cellSpacing;
-
   for (const tile of row.querySelectorAll("td.ContributionCalendar-day")) {
     const lvl = +tile.getAttribute("data-level")!;
     svg += `<rect class="t ${["a", "b", "c", "d", "e"][lvl]}" x="${x}" y="${y}" />`;
     x += cellWidth + cellSpacing;
   }
 }
+
+y += cellHeight + cellSpacing + 2;
+const totalContribs = document.querySelector("#js-contribution-activity-description")!.innerText.trim();
+svg += `<text class="s" x="0" y="${y}">${totalContribs}</text>`;
 
 svg += "</svg>";
 
