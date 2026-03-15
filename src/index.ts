@@ -73,4 +73,4 @@ const { data: optimized } = optimize(svg, {
   multipass: true,
 });
 
-fs.writeFileSync("graph.svg", optimized);
+fs.writeFileSync("dist/graph.svg", optimized);
