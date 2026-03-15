@@ -1,0 +1,15 @@
+{
+  "name": "contrib-graph",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.ts"
+  },
+  "dependencies": {
+    "node-html-parser": "^7.1.0",
+    "svgo": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0"
+  },
+  "packageManager": "yarn@4.13.0"
+}
