@@ -38,6 +38,7 @@ let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 686 120" width="
   .d { opacity: 0.75; }
   .e { opacity: 1; }
 </style>`;
+let raw = "";
 
 let x = 0;
 let y = 0;
@@ -53,9 +54,11 @@ y += 1;
 for (const row of t.querySelectorAll("tbody > tr")) {
   x = 0;
   y += cellHeight + cellSpacing;
+  if (raw !== "") raw += "\n";
   for (const tile of row.querySelectorAll("td.ContributionCalendar-day")) {
     const lvl = +tile.getAttribute("data-level")!;
     svg += `<rect class="t ${["a", "b", "c", "d", "e"][lvl]}" x="${x}" y="${y}" />`;
+    raw += lvl;
     x += cellWidth + cellSpacing;
   }
 }
@@ -63,6 +66,7 @@ for (const row of t.querySelectorAll("tbody > tr")) {
 y += cellHeight + cellSpacing + 2;
 const totalContribs = document.querySelector("#js-contribution-activity-description")!.innerText.trim();
 svg += `<text class="s" x="0" y="${y}">${totalContribs}</text>`;
+raw = `${totalContribs.replaceAll(/[^\d]/g, "")}\n${raw}`;
 
 svg += "</svg>";
 
@@ -74,3 +78,4 @@ if (!fs.existsSync("dist")) {
   fs.mkdirSync("dist");
 }
 fs.writeFileSync("dist/graph.svg", optimized);
+fs.writeFileSync("dist/graph.txt", raw);
