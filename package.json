@@ -5,11 +5,11 @@
     "start": "node src/index.ts"
   },
   "dependencies": {
-    "node-html-parser": "^7.1.0",
-    "svgo": "^4.0.1"
+    "node-html-parser": "^9.0.7",
+    "svgo": "^4.1.0"
   },
   "devDependencies": {
-    "@types/node": "^25.5.0"
+    "@types/node": "^26.6.11"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.19.0+sha512.2cb9e5a36f7f11f2bc6ff444830d87368d419e0d83b6a0fb6077d3e6fed0f476c9514dff4ba4d84b049bd34ef32954e550f264ad2fbbfebcba6c89e869530bba"
 }
